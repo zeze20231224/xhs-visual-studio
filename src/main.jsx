@@ -20,7 +20,18 @@ import {
 } from "lucide-react";
 import "./styles.css";
 
-const initialPages = [
+function buildPrompt(page) {
+  return `生成一张 3:4 竖版小红书图文页面。页面任务：${page.task}。主标题：${page.title}。副标题：${page.subtitle}。核心内容：${page.body.replaceAll("\n", "；")}。采用${page.style}风格，暖米白纸感背景，炭黑现代中文无衬线字体，鼠尾草绿表达积极行动，低饱和砖红强调误区或提醒。保持标题安全区、手机端可读性和清晰留白；使用克制的编辑式结构，不要廉价母婴模板、蓝紫渐变、卡通贴纸、文字变形和 PPT 感。`;
+}
+
+function preparePages(pages) {
+  return pages.map((page) => ({
+    ...page,
+    prompt: buildPrompt(page),
+  }));
+}
+
+const initialPages = preparePages([
   {
     title: "孩子越哭，越别急着讲道理",
     subtitle: "情绪崩溃时，父母可以照着说的 5 句话",
@@ -77,11 +88,80 @@ const initialPages = [
     task: "总结引导",
     style: "高级白底",
   },
-].map((page, index) => ({
-  ...page,
-  image: `${import.meta.env.BASE_URL}assets/pages/${String(index + 1).padStart(2, "0")}.png`,
-  prompt: `生成一张 3:4 竖版小红书图文页面。页面任务：${page.task}。主题：${page.title}。采用${page.style}风格，暖米白纸感背景，炭黑现代中文无衬线字体，鼠尾草绿表达连接，低饱和砖红表达冲突或边界。保持标题安全区、手机端可读性和清晰留白；使用克制的纸雕人物或编辑式结构，不要廉价母婴模板、蓝紫渐变、卡通贴纸、文字变形和 PPT 感。`,
-}));
+]);
+
+const readingHabitPages = preparePages([
+  {
+    title: "别急着要求孩子爱读书",
+    subtitle: "先让阅读变成一件轻松、随手可做的事",
+    body: "培养阅读习惯，不靠催促\n靠环境 · 选择 · 陪伴 · 重复",
+    task: "封面钩子",
+    style: "纸雕杂志",
+  },
+  {
+    title: "孩子不爱读，往往不是懒",
+    subtitle: "先排除这 3 个阅读阻力",
+    body: "书太难：读两页就挫败\n总被考：读完必须回答问题\n没得选：大人替他决定读什么",
+    task: "指出痛点",
+    style: "对比结构",
+  },
+  {
+    title: "真正有效的阅读习惯公式",
+    subtitle: "低门槛 × 固定触发 × 及时愉悦",
+    body: "每天 10-15 分钟就够\n固定在睡前或放学后\n结束时保留“还想再读一点”",
+    task: "解释认知",
+    style: "高级白底",
+  },
+  {
+    title: "第一步：让书随手可得",
+    subtitle: "环境，比提醒更有力量",
+    body: "客厅放一个低矮书篮\n封面朝外，比书脊更吸引孩子\n每周轮换 5-8 本，不要一次摆太多",
+    task: "环境设计",
+    style: "纸雕杂志",
+  },
+  {
+    title: "第二步：把选书权交给孩子",
+    subtitle: "允许偏爱，也允许放弃",
+    body: "漫画、科普、故事都算阅读\n同一本书反复读也没关系\n不喜欢可以停，不把读完当任务",
+    task: "选择机制",
+    style: "情绪标签",
+  },
+  {
+    title: "第三步：每天陪读 15 分钟",
+    subtitle: "少提问，多分享",
+    body: "父母也拿一本书坐在旁边\n读到有趣处，说说自己的感受\n少问“学到了什么”，多问“哪里最好玩”",
+    task: "陪读方法",
+    style: "高级白底",
+  },
+  {
+    title: "7 天阅读习惯启动计划",
+    subtitle: "先让孩子愿意坐下来，再慢慢延长",
+    body: "第 1-2 天：一起选书，读 5 分钟\n第 3-5 天：固定时间，读 10 分钟\n第 6-7 天：孩子选书，亲子共读 15 分钟",
+    task: "行动计划",
+    style: "情绪分镜",
+  },
+  {
+    title: "爱读书，不是被逼出来的",
+    subtitle: "让孩子把书和愉快、陪伴、自由联系在一起",
+    body: "书要看得见 · 内容能选择\n时间够固定 · 父母真陪伴\n先收藏，今晚从 10 分钟开始",
+    task: "总结引导",
+    style: "高级白底",
+  },
+]);
+
+function buildGenericPages(rawTopic) {
+  const cleanTopic = rawTopic.trim().replace(/[。？?！!]$/, "") || "我的小红书主题";
+  return preparePages([
+    { title: cleanTopic, subtitle: "把一个主题，拆成可以直接执行的 8 页内容", body: "先讲清问题\n再给方法和行动", task: "封面钩子", style: "纸雕杂志" },
+    { title: "为什么很多人做了，却没有效果？", subtitle: "先看见真正的阻力", body: "目标太大 · 方法太散\n缺少固定动作 · 很难坚持", task: "指出痛点", style: "对比结构" },
+    { title: "先记住这个核心原则", subtitle: cleanTopic, body: "降低开始门槛\n建立固定触发\n让结果可以被看见", task: "解释认知", style: "高级白底" },
+    { title: "第一步：从最小动作开始", subtitle: "小到今天就能完成", body: "不要一次改变全部\n先确定一个具体动作", task: "方法一", style: "纸雕杂志" },
+    { title: "第二步：给动作一个固定场景", subtitle: "让环境提醒你，而不是靠意志力", body: "固定时间 · 固定地点\n固定开始信号", task: "方法二", style: "情绪标签" },
+    { title: "第三步：记录一次小反馈", subtitle: "看见进步，才更容易继续", body: "完成后立即记录\n只比较自己的前后变化", task: "方法三", style: "高级白底" },
+    { title: "一套可以照做的 7 天计划", subtitle: "先跑通，再优化", body: "第 1-2 天：降低门槛\n第 3-5 天：固定节奏\n第 6-7 天：复盘调整", task: "行动计划", style: "情绪分镜" },
+    { title: "真正有效的改变，都从容易开始", subtitle: cleanTopic, body: "收藏这套步骤\n今天先完成第一个小动作", task: "总结引导", style: "高级白底" },
+  ]);
+}
 
 const inspiration = [
   {
@@ -115,6 +195,33 @@ function IconButton({ children, label, onClick }) {
     <button className="icon-button" aria-label={label} onClick={onClick}>
       {children}
     </button>
+  );
+}
+
+function PagePreview({ page, index, compact = false }) {
+  const lines = page.body.split("\n").filter(Boolean);
+
+  return (
+    <div className={`page-preview ${compact ? "compact" : ""} page-tone-${index % 4}`}>
+      <div className="preview-topline">
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        <em>{page.task}</em>
+      </div>
+      <div className="preview-copy">
+        <h2>{page.title}</h2>
+        <p className="preview-subtitle">{page.subtitle}</p>
+        <div className="preview-divider" />
+        <div className="preview-body">
+          {lines.map((line) => <p key={line}>{line}</p>)}
+        </div>
+      </div>
+      <div className="preview-motif" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+      <small>{String(index + 1).padStart(2, "0")} / 08</small>
+    </div>
   );
 }
 
@@ -166,13 +273,12 @@ function App() {
   }
 
   function generateBlueprint() {
-    const next = initialPages.map((page, index) => ({
-      ...page,
-      title: index === 0 ? topic.replace(/[。？?]$/, "") : page.title,
-    }));
+    const isReadingTopic = /读书|阅读|爱读|读书习惯|阅读习惯/.test(topic);
+    const next = isReadingTopic ? readingHabitPages : buildGenericPages(topic);
     setPages(next);
     setActive(0);
-    setToast("已生成 8 页创作蓝图");
+    localStorage.setItem("xhs-studio-pages", JSON.stringify(next));
+    setToast(isReadingTopic ? "已生成「阅读习惯」8 页完整内容" : "已生成 8 页通用创作蓝图");
   }
 
   function exportPack() {
@@ -219,7 +325,7 @@ function App() {
         <header className="topbar">
           <div>
             <p className="product-name">小红书视觉创作台</p>
-            <h1>育儿情绪沟通 · 8 页图文</h1>
+            <h1>{pages[0]?.title || "小红书主题"} · 8 页图文</h1>
           </div>
           <div className="top-actions">
             <button className="button secondary" onClick={saveProject}><Save size={16} />保存项目</button>
@@ -248,7 +354,7 @@ function App() {
                 className={`story-card ${active === index ? "selected" : ""}`}
                 onClick={() => setActive(index)}
               >
-                <img src={page.image} alt="" />
+                <PagePreview page={page} index={index} compact />
                 <div>
                   <strong>{String(index + 1).padStart(2, "0")}</strong>
                   <span>{page.task}</span>
@@ -281,7 +387,7 @@ function App() {
               <div><button>适应画布 <ChevronDown size={13} /></button><IconButton label="刷新预览"><RefreshCw size={15} /></IconButton></div>
             </div>
             <div className="canvas">
-              <img src={current.image} alt={`第 ${active + 1} 页预览`} />
+              <PagePreview page={current} index={active} />
             </div>
             <p className="canvas-note">3:4 · 1242 × 1660 · 中文后期排版优先</p>
           </div>
