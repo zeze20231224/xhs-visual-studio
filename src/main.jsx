@@ -20,6 +20,9 @@ import {
 } from "lucide-react";
 import "./styles.css";
 
+const APP_VERSION = "0.2.0";
+const STORAGE_KEY = "xhs-studio-pages-v2";
+
 function buildPrompt(page) {
   return `生成一张 3:4 竖版小红书图文页面。页面任务：${page.task}。主标题：${page.title}。副标题：${page.subtitle}。核心内容：${page.body.replaceAll("\n", "；")}。采用${page.style}风格，暖米白纸感背景，炭黑现代中文无衬线字体，鼠尾草绿表达积极行动，低饱和砖红强调误区或提醒。保持标题安全区、手机端可读性和清晰留白；使用克制的编辑式结构，不要廉价母婴模板、蓝紫渐变、卡通贴纸、文字变形和 PPT 感。`;
 }
@@ -227,7 +230,7 @@ function PagePreview({ page, index, compact = false }) {
 
 function App() {
   const [pages, setPages] = useState(() => {
-    const saved = localStorage.getItem("xhs-studio-pages");
+    const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : initialPages;
   });
   const [active, setActive] = useState(3);
@@ -254,7 +257,7 @@ function App() {
   }
 
   function saveProject() {
-    localStorage.setItem("xhs-studio-pages", JSON.stringify(pages));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(pages));
     setToast("项目已保存到本机");
   }
 
@@ -277,7 +280,7 @@ function App() {
     const next = isReadingTopic ? readingHabitPages : buildGenericPages(topic);
     setPages(next);
     setActive(0);
-    localStorage.setItem("xhs-studio-pages", JSON.stringify(next));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     setToast(isReadingTopic ? "已生成「阅读习惯」8 页完整内容" : "已生成 8 页通用创作蓝图");
   }
 
@@ -324,7 +327,7 @@ function App() {
       <main className="workspace">
         <header className="topbar">
           <div>
-            <p className="product-name">小红书视觉创作台</p>
+            <p className="product-name">小红书视觉创作台 <span>v{APP_VERSION}</span></p>
             <h1>{pages[0]?.title || "小红书主题"} · 8 页图文</h1>
           </div>
           <div className="top-actions">

@@ -21,6 +21,7 @@ button { cursor: pointer; }
 .workspace { grid-column: 2; padding: 25px 30px 42px; max-width: 1640px; width: 100%; margin: 0 auto; }
 .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
 .product-name { margin: 0 0 5px; color: #7d7b74; font-size: 12px; letter-spacing: .08em; }
+.product-name span { margin-left: 6px; color: #b85c4b; font-weight: 700; letter-spacing: 0; }
 h1 { margin: 0; font-size: 23px; line-height: 1.2; }
 .top-actions { display: flex; gap: 9px; }
 .button { border: 1px solid #cbc6bb; background: #fbfaf6; color: #292a27; min-height: 38px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; }
