@@ -79,7 +79,7 @@ const initialPages = [
   },
 ].map((page, index) => ({
   ...page,
-  image: `/assets/pages/${String(index + 1).padStart(2, "0")}.png`,
+  image: `${import.meta.env.BASE_URL}assets/pages/${String(index + 1).padStart(2, "0")}.png`,
   prompt: `生成一张 3:4 竖版小红书图文页面。页面任务：${page.task}。主题：${page.title}。采用${page.style}风格，暖米白纸感背景，炭黑现代中文无衬线字体，鼠尾草绿表达连接，低饱和砖红表达冲突或边界。保持标题安全区、手机端可读性和清晰留白；使用克制的纸雕人物或编辑式结构，不要廉价母婴模板、蓝紫渐变、卡通贴纸、文字变形和 PPT 感。`,
 }));
 
@@ -337,6 +337,16 @@ function App() {
             ))}
           </div>
         </section>
+        <footer className="app-footer">
+          <span>小红书视觉创作台 · 开源基础版</span>
+          <a
+            href="https://github.com/zeze20231224/xhs-visual-studio"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub · AGPL-3.0
+          </a>
+        </footer>
       </main>
       {toast && <div className="toast">{toast}</div>}
     </div>

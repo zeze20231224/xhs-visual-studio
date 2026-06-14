@@ -97,6 +97,8 @@ h1 { margin: 0; font-size: 23px; line-height: 1.2; }
 .inspiration-card strong { font-size: 12px; }
 .inspiration-card p { margin: 5px 0 0; color: #85837b; font-size: 10px; line-height: 1.45; }
 .inspiration-card button { position: absolute; right: 8px; bottom: 7px; border: 0; background: transparent; color: #65755e; font-size: 10px; font-weight: 700; }
+.app-footer { display: flex; align-items: center; justify-content: space-between; padding: 16px 2px 0; color: #8a887f; font-size: 10px; }
+.app-footer a { color: #65755e; }
 .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #252623; color: white; padding: 10px 16px; font-size: 12px; z-index: 20; box-shadow: 0 8px 30px rgba(0,0,0,.2); }
 
 @media (max-width: 1180px) {
