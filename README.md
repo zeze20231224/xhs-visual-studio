@@ -1,87 +1,127 @@
-# 社交内容创作台
+# 社交内容创作台 / XHS Visual Studio
 
-> 输入一个主题，生成小红书 8 页图文，或抖音 15/30/60 秒口播脚本与分镜。
+> An open-source creation studio for Chinese social content. It turns a topic into Xiaohongshu carousel pages or Douyin short-video storyboards with editable copy, visual direction, and exportable prompts.
 
-[在线体验](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0) · [功能说明](#当前功能) · [本地运行](#本地运行)
+[Online demo](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0) · [Features](#features) · [Roadmap](#roadmap) · [中文说明](#中文说明)
 
-把两类能力组合成一个可运行的创作工具：
+## Why This Project Exists
 
-1. `xhs-visual-director`：负责选题判断、传播钩子、8 页叙事结构、逐页文案、信息层级和视觉一致性。
-2. 图像提示词案例方法：负责补强镜头、构图、材质、配色、留白和负面约束。
+Many individual creators, parents, educators, and small businesses want to publish structured social content, but the actual workflow is scattered across chat windows, notes, image prompts, design tools, and video scripts.
 
-## 当前功能
+This project explores a more practical workflow:
 
-### 小红书模式
+- Start from one topic.
+- Generate a clear content structure.
+- Preview each page or scene visually.
+- Edit the copy, visual direction, and AI generation prompts in one place.
+- Export a usable creation package for image generation, design work, or short-video production.
 
-- 输入主题并生成 8 页创作蓝图。
-- 通过故事板和页面目录切换页面。
-- 编辑每页标题、副标题、正文和图像提示词。
-- 浏览并应用纸雕杂志、高级白底、情绪分镜、对比结构等视觉参考。
-- 使用现有 8 页育儿图文作为示例项目。
-- 将项目保存到浏览器本地。
-- 一键复制当前页图像生成提示词。
-- 导出包含 8 页文案和提示词的 Markdown 创作包。
-- 桌面端与移动端自适应。
+The current version is a frontend MVP. It does not yet call the OpenAI API directly, but it is designed to become an AI-assisted open-source content creation tool.
 
-### 抖音模式
+## Screenshots
 
-- 生成 15、30 或 60 秒短视频脚本。
-- 自动拆分时间段、镜头任务、口播、字幕和画面。
-- 9:16 竖屏分镜预览。
-- 逐镜编辑画面内容、镜头运动与视频生成提示词。
-- 导出完整 Markdown 拍摄清单。
-- 内置前 3 秒、口播节奏、字幕和结尾动作建议。
+### Xiaohongshu Carousel Mode
 
-## 它适合谁
+![Xiaohongshu carousel mode](docs/screenshots/xhs-mode.png)
 
-- 需要稳定更新小红书图文的个人创作者。
-- 同时经营多个选题、容易在结构和排版上反复返工的运营人员。
-- 想把 AI 生图提示词变成可复用工作流的设计师。
-- 需要先快速完成内容蓝图，再交给设计或图像模型执行的小团队。
+### Douyin Short Video Mode
 
-当前版本最实际的价值是：把散落在聊天、文档和提示词里的图文与短视频策划过程，集中到一个可编辑、可预览、可导出的工作台中。它还不是“输入任何题目就自动生成最终图片或视频”的完整 AI 产品。
+![Douyin short video mode](docs/screenshots/douyin-mode.png)
 
-## 本地运行
+## Features
+
+### Xiaohongshu Carousel
+
+- Generate an 8-page carousel blueprint from a topic.
+- Edit page title, subtitle, core copy, and image-generation prompt.
+- Preview a 3:4 mobile-friendly visual card for each page.
+- Use structured templates for parenting, reading-habit, and general creator topics.
+- Export a Markdown creation package with all page copy and prompts.
+- Save project data locally in the browser.
+
+### Douyin Short Video
+
+- Generate 15s, 30s, or 60s short-video scripts.
+- Split the idea into timed scenes, voiceover, subtitles, visual shots, and camera movement.
+- Preview each scene in a 9:16 storyboard layout.
+- Edit scene-level video prompts.
+- Export a Markdown shooting checklist.
+
+## Open Source Maintenance Use Case
+
+This repository is maintained as an open-source experiment in AI-assisted creator tooling. Codex is useful for:
+
+- React frontend development and refactoring.
+- UI debugging across desktop and mobile layouts.
+- Improving prompt workflows for visual and video generation.
+- Adding export formats and automation.
+- Maintaining documentation, issues, releases, and GitHub Pages deployment.
+
+API credits would be used to prototype optional AI-powered features such as topic-to-carousel generation, Douyin storyboard generation, prompt quality checks, and template recommendations.
+
+## Roadmap
+
+- [ ] Add OpenAI API integration for dynamic topic-to-carousel generation.
+- [ ] Add AI-assisted Douyin script generation with configurable tone and audience.
+- [ ] Add a prompt template library for different content niches.
+- [ ] Add one-click image prompt export for GPT Image and other image models.
+- [ ] Add PWA installation support for desktop and mobile.
+- [ ] Add project import/export in JSON format.
+- [ ] Add automated content quality checks for title clarity, hook strength, and page flow.
+- [ ] Add bilingual documentation for contributors.
+
+## Local Development
 
 ```powershell
 npm.cmd install
 npm.cmd run dev
 ```
 
-打开 Vite 输出的本地地址。
+Open the local Vite URL shown in the terminal.
 
-生产构建：
+Production build:
 
 ```powershell
 npm.cmd run build
 ```
 
-## 项目结构
+## Project Structure
 
 ```text
 src/
-  main.jsx        创作台界面与交互
-  styles.css      设计系统与响应式样式
+  main.jsx        Main React application and creation workflows
+  styles.css      Visual system and responsive layout
 public/
-  assets/pages/   8 页示例项目图片
+  assets/pages/   Legacy sample page assets
+docs/
+  screenshots/    README screenshots
 ```
 
-## 后续接入
+## 中文说明
 
-当前版本是可运行的前端 MVP，生成蓝图使用内置示例逻辑。接入模型 API 后，可进一步实现：
+社交内容创作台是一个面向普通创作者的小红书图文与抖音短视频创作工具。输入一个主题后，它会生成：
 
-- 根据任意主题动态生成 6-10 页结构。
-- 从提示词案例库检索更匹配的视觉参考。
-- 调用图像模型批量生成页面底图。
-- 对中文排版进行确定性二次渲染。
-- 项目云端保存、版本管理与团队协作。
+- 小红书 8 页图文结构、逐页文案、视觉方向和图片提示词。
+- 抖音 15/30/60 秒短视频脚本、分镜、口播、字幕和视频提示词。
 
-## 参考与许可
+它适合：
 
-提示词设计方法参考：
+- 需要稳定更新小红书图文的个人创作者。
+- 想把育儿、教育、生活方式等主题做成结构化内容的人。
+- 想把 AI 生图/视频提示词变成可复用工作流的设计师和运营人员。
+- 需要先完成内容蓝图，再交给设计或图像模型执行的小团队。
+
+当前版本最实际的价值是：把散落在聊天、文档和提示词里的图文与短视频策划过程，集中到一个可编辑、可预览、可导出的工作台中。
+
+## References
+
+Prompt-design methodology reference:
 
 - [YouMind-OpenLab/awesome-gpt-image-2](https://github.com/YouMind-OpenLab/awesome-gpt-image-2)
 
-引用和再利用该仓库内容时，应遵守其 CC BY 4.0 许可与署名要求。
+When reusing content from that repository, follow its license and attribution requirements.
 
-本项目代码采用 [AGPL-3.0](LICENSE) 开源。你可以查看、学习、修改和部署；如果向他人提供修改后的网络服务，需要按许可证公开相应源码。未来的托管服务、模型接口、私有模板库和商业后端可以作为独立项目维护。
+## License
+
+This project is released under the [AGPL-3.0](LICENSE) license.
+
