@@ -2,7 +2,7 @@
 
 > An open-source creation studio for Chinese social content. It turns a topic into Xiaohongshu carousel pages or Douyin short-video storyboards with editable copy, visual direction, and exportable prompts.
 
-[Online demo](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0) · [Features](#features) · [Roadmap](#roadmap) · [中文说明](#中文说明)
+[Online demo](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0) · [Demo Guide](#demo-guide) · [Features](#features) · [Roadmap](#roadmap) · [中文说明](#中文说明)
 
 ## Why This Project Exists
 
@@ -17,6 +17,40 @@ This project explores a more practical workflow:
 - Export a usable creation package for image generation, design work, or short-video production.
 
 The current version is a frontend MVP. It does not yet call the OpenAI API directly, but it is designed to become an AI-assisted open-source content creation tool.
+
+## Demo Guide
+
+Open the live demo:
+
+[https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0)
+
+Try these flows:
+
+1. Select **Xiaohongshu Carousel**.
+2. Enter a topic such as `如何培养孩子的读书习惯`.
+3. Click **Generate Creation Blueprint**.
+4. Review and edit the 8-page carousel copy, visual direction, and prompts.
+5. Export the Markdown creation package.
+
+For short video:
+
+1. Select **Douyin Short Video**.
+2. Choose 15s, 30s, or 60s.
+3. Enter the same topic.
+4. Generate the video script and review each scene's voiceover, subtitle, shot, and prompt.
+5. Export the shooting checklist.
+
+The app currently stores project data in the browser, so no login is required for the demo.
+
+## Install to Desktop or Mobile
+
+The app can be saved like a lightweight web tool from most modern browsers:
+
+- **Desktop Chrome or Edge:** open the demo URL, then use the browser menu and choose **Install app** or **More tools > Create shortcut**.
+- **Android Chrome:** open the demo URL, tap the browser menu, then choose **Add to Home screen**.
+- **iPhone Safari:** open the demo URL, tap **Share**, then choose **Add to Home Screen**.
+
+See the full guide: [docs/INSTALL.md](docs/INSTALL.md).
 
 ## Screenshots
 
@@ -124,4 +158,3 @@ When reusing content from that repository, follow its license and attribution re
 ## License
 
 This project is released under the [AGPL-3.0](LICENSE) license.
-
