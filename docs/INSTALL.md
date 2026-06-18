@@ -4,7 +4,7 @@ This guide explains how to save XHS Visual Studio to a desktop or phone for fast
 
 Live demo:
 
-https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0
+https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.1
 
 ## Desktop
 
@@ -43,7 +43,12 @@ https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0
 
 ## Current Status
 
-This is currently an install guide for the hosted web app. Full PWA support, including a web app manifest, installable icons, and optional offline behavior, is tracked in:
+Version `0.3.1` includes basic PWA support:
+
+- A web app manifest.
+- Browser install metadata.
+- A service worker that caches the app shell and core assets.
+
+Further polish, including richer icons and deeper offline behavior, is tracked in:
 
 https://github.com/zeze20231224/xhs-visual-studio/issues/4
-

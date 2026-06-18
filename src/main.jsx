@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import "./styles.css";
 
-const APP_VERSION = "0.3.0";
+const APP_VERSION = "0.3.1";
 const STORAGE_KEY = "xhs-studio-pages-v2";
 const VIDEO_STORAGE_KEY = "xhs-studio-video-v1";
 
@@ -725,3 +725,11 @@ function App() {
 }
 
 createRoot(document.getElementById("root")).render(<App />);
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {
+      // PWA support should never block the editor itself.
+    });
+  });
+}

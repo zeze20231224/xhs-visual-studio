@@ -1,0 +1,21 @@
+{
+  "name": "社交内容创作台 / XHS Visual Studio",
+  "short_name": "创作台",
+  "description": "Generate Xiaohongshu carousel blueprints and Douyin short-video storyboards from a topic.",
+  "lang": "zh-CN",
+  "start_url": "./?v=0.3.1",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f2eb",
+  "theme_color": "#f5f2eb",
+  "categories": ["productivity", "social", "utilities"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

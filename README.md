@@ -2,7 +2,7 @@
 
 > An open-source creation studio for Chinese social content. It turns a topic into Xiaohongshu carousel pages or Douyin short-video storyboards with editable copy, visual direction, and exportable prompts.
 
-[Online demo](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0) · [Demo Guide](#demo-guide) · [Features](#features) · [Roadmap](#roadmap) · [中文说明](#中文说明)
+[Online demo](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.1) · [Demo Guide](#demo-guide) · [Features](#features) · [Roadmap](#roadmap) · [中文说明](#中文说明)
 
 ## Why This Project Exists
 
@@ -22,7 +22,7 @@ The current version is a frontend MVP. It does not yet call the OpenAI API direc
 
 Open the live demo:
 
-[https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.0)
+[https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.1](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.1)
 
 Try these flows:
 
@@ -46,7 +46,7 @@ The app currently stores project data in the browser, so no login is required fo
 
 The app can be saved like a lightweight web tool from most modern browsers:
 
-- **Desktop Chrome or Edge:** open the demo URL, then use the browser menu and choose **Install app** or **More tools > Create shortcut**.
+- **Desktop Chrome or Edge:** open the demo URL, then use the browser menu and choose **Install app**, **Apps > Install this site as an app**, or **More tools > Create shortcut**.
 - **Android Chrome:** open the demo URL, tap the browser menu, then choose **Add to Home screen**.
 - **iPhone Safari:** open the demo URL, tap **Share**, then choose **Add to Home Screen**.
 
@@ -81,6 +81,12 @@ See the full guide: [docs/INSTALL.md](docs/INSTALL.md).
 - Edit scene-level video prompts.
 - Export a Markdown shooting checklist.
 
+### PWA Basics
+
+- Web app manifest for desktop and mobile installation.
+- Service worker with a small cache for the app shell and core assets.
+- Mobile home-screen metadata for iPhone and Android browsers.
+
 ## Open Source Maintenance Use Case
 
 This repository is maintained as an open-source experiment in AI-assisted creator tooling. Codex is useful for:
@@ -99,7 +105,7 @@ API credits would be used to prototype optional AI-powered features such as topi
 - [ ] Add AI-assisted Douyin script generation with configurable tone and audience.
 - [ ] Add a prompt template library for different content niches.
 - [ ] Add one-click image prompt export for GPT Image and other image models.
-- [ ] Add PWA installation support for desktop and mobile.
+- [x] Add basic PWA installation support for desktop and mobile.
 - [ ] Add project import/export in JSON format.
 - [ ] Add automated content quality checks for title clarity, hook strength, and page flow.
 - [ ] Add bilingual documentation for contributors.
