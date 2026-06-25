@@ -2,7 +2,7 @@
 
 > An open-source creation studio for Chinese social content. It turns a topic into Xiaohongshu carousel pages or Douyin short-video storyboards with editable copy, visual direction, and exportable prompts.
 
-[Online demo](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.1) · [Demo Guide](#demo-guide) · [Features](#features) · [Roadmap](#roadmap) · [中文说明](#中文说明)
+[Online demo](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.3) · [Demo Guide](#demo-guide) · [Features](#features) · [Roadmap](#roadmap) · [中文说明](#中文说明)
 
 ## Why This Project Exists
 
@@ -22,7 +22,7 @@ The current version is a frontend MVP. It does not yet call the OpenAI API direc
 
 Open the live demo:
 
-[https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.1](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.1)
+[https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.3](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.3)
 
 Try these flows:
 
@@ -81,6 +81,18 @@ See the full guide: [docs/INSTALL.md](docs/INSTALL.md).
 - Edit scene-level video prompts.
 - Export a Markdown shooting checklist.
 
+### Project Files
+
+- Export the current workspace as a JSON project file.
+- Import a JSON project file to continue editing later.
+- Keep local browser save and portable file backup as separate workflows.
+
+### Classical Chinese Inspiration Library
+
+- Includes a first batch of scenes from Shijing, Chuci, Tang poetry, Song lyrics, and classical novels.
+- Each entry includes source metadata, themes, scene direction, Xiaohongshu angle, Douyin hook, and visual prompt.
+- Use a classical scene as a topic starter or copy its visual prompt for image/video generation.
+
 ### PWA Basics
 
 - Web app manifest for desktop and mobile installation.
@@ -106,7 +118,8 @@ API credits would be used to prototype optional AI-powered features such as topi
 - [ ] Add a prompt template library for different content niches.
 - [ ] Add one-click image prompt export for GPT Image and other image models.
 - [x] Add basic PWA installation support for desktop and mobile.
-- [ ] Add project import/export in JSON format.
+- [x] Add project import/export in JSON format.
+- [x] Add a first classical Chinese inspiration library.
 - [ ] Add automated content quality checks for title clarity, hook strength, and page flow.
 - [ ] Add bilingual documentation for contributors.
 

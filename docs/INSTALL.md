@@ -4,7 +4,7 @@ This guide explains how to save XHS Visual Studio to a desktop or phone for fast
 
 Live demo:
 
-https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.1
+https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.3
 
 ## Desktop
 

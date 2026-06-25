@@ -1,8 +1,8 @@
-const CACHE_NAME = "xhs-visual-studio-v0.3.1";
+const CACHE_NAME = "xhs-visual-studio-v0.3.3";
 const BASE_PATH = "/xhs-visual-studio/";
 const CORE_ASSETS = [
   BASE_PATH,
-  `${BASE_PATH}?v=0.3.1`,
+  `${BASE_PATH}?v=0.3.3`,
   `${BASE_PATH}manifest.webmanifest`,
   `${BASE_PATH}favicon.svg`,
 ];

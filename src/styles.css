@@ -23,7 +23,8 @@ button { cursor: pointer; }
 .product-name { margin: 0 0 5px; color: #7d7b74; font-size: 12px; letter-spacing: .08em; }
 .product-name span { margin-left: 6px; color: #b85c4b; font-weight: 700; letter-spacing: 0; }
 h1 { margin: 0; font-size: 23px; line-height: 1.2; }
-.top-actions { display: flex; gap: 9px; }
+.top-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px; }
+.file-input { display: none; }
 .button { border: 1px solid #cbc6bb; background: #fbfaf6; color: #292a27; min-height: 38px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; }
 .button.primary { background: #242522; color: #fff; border-color: #242522; }
 .button.generate { background: #82927b; color: white; border-color: #82927b; white-space: nowrap; }
@@ -167,13 +168,33 @@ h1 { margin: 0; font-size: 23px; line-height: 1.2; }
 .video-tips-grid article { min-height: 82px; border: 1px solid #ddd9d0; background: white; padding: 12px; }
 .video-tips-grid strong { font-size: 12px; }
 .video-tips-grid p { margin: 7px 0 0; color: #85837b; font-size: 10px; line-height: 1.55; }
+.classic-panel { margin-top: 18px; border: 1px solid #d9d5cc; background: #fbfaf6; }
+.classic-heading { min-height: 46px; border-bottom: 1px solid #dedad1; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; }
+.classic-heading > div { display: flex; gap: 8px; align-items: center; font-size: 13px; font-weight: 700; }
+.classic-heading small, .classic-heading > span { color: #929088; font-weight: 400; font-size: 10px; }
+.classic-filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 12px 0; }
+.classic-filters button { border: 1px solid #d4cfc4; background: #fffdfa; color: #6d6b64; min-height: 30px; padding: 0 12px; font-size: 11px; }
+.classic-filters button.active { background: #242522; border-color: #242522; color: #fff; }
+.classic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px; }
+.classic-card { border: 1px solid #ddd9d0; background: white; padding: 12px; display: grid; gap: 8px; min-height: 232px; }
+.classic-card-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.classic-card-top span { background: #e8ece4; color: #65755e; padding: 3px 7px; font-size: 10px; font-weight: 700; }
+.classic-card-top small { color: #9a978e; font-size: 10px; }
+.classic-card h3 { margin: 0; font-size: 18px; letter-spacing: -.03em; }
+.classic-card p { margin: 0; color: #6f6d66; font-size: 11px; line-height: 1.65; }
+.classic-card .classic-source { color: #9a5a4d; font-weight: 700; }
+.classic-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.classic-tags span { background: #f0ece3; color: #77746b; padding: 3px 6px; font-size: 10px; }
+.classic-actions { display: flex; gap: 8px; margin-top: auto; }
+.classic-actions button { border: 0; background: transparent; color: #65755e; font-size: 11px; font-weight: 700; padding: 0; }
+.classic-actions button:first-child { color: #9a5a4d; }
 .app-footer { display: flex; align-items: center; justify-content: space-between; padding: 16px 2px 0; color: #8a887f; font-size: 10px; }
 .app-footer a { color: #65755e; }
 .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #252623; color: white; padding: 10px 16px; font-size: 12px; z-index: 20; box-shadow: 0 8px 30px rgba(0,0,0,.2); }
 
 @media (max-width: 1180px) {
   .editor { grid-template-columns: 180px minmax(330px, 1fr) 300px; }
-  .inspiration-grid, .video-tips-grid { grid-template-columns: repeat(2, 1fr); }
+  .inspiration-grid, .video-tips-grid, .classic-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 900px) {
@@ -216,5 +237,7 @@ h1 { margin: 0; font-size: 23px; line-height: 1.2; }
   .canvas-panel { min-height: 540px; }
   .inspiration-heading { align-items: flex-start; padding: 12px; gap: 8px; flex-direction: column; }
   .inspiration-heading small { display: none; }
-  .inspiration-grid, .video-tips-grid { grid-template-columns: 1fr; }
+  .inspiration-grid, .video-tips-grid, .classic-grid { grid-template-columns: 1fr; }
+  .classic-heading { align-items: flex-start; padding: 12px; gap: 8px; flex-direction: column; }
+  .classic-heading small { display: none; }
 }

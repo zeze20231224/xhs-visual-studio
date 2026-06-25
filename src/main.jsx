@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
   Archive,
@@ -19,12 +19,16 @@ import {
   Save,
   Settings,
   Sparkles,
+  Upload,
   Video,
   WandSparkles,
 } from "lucide-react";
 import "./styles.css";
+import { classicCategories, classicScenes } from "./data/classicScenes.js";
 
-const APP_VERSION = "0.3.1";
+const APP_VERSION = "0.3.3";
+const PROJECT_SCHEMA = "xhs-visual-studio-project";
+const PROJECT_SCHEMA_VERSION = 1;
 const STORAGE_KEY = "xhs-studio-pages-v2";
 const VIDEO_STORAGE_KEY = "xhs-studio-video-v1";
 
@@ -319,6 +323,7 @@ function VideoPreview({ scene, index, compact = false }) {
 }
 
 function App() {
+  const fileInputRef = useRef(null);
   const [mode, setMode] = useState("xhs");
   const [pages, setPages] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -332,9 +337,16 @@ function App() {
   const [active, setActive] = useState(3);
   const [activeScene, setActiveScene] = useState(0);
   const [tab, setTab] = useState("文案");
+  const [classicCategory, setClassicCategory] = useState("全部");
   const [topic, setTopic] = useState("孩子情绪崩溃时，父母可以照着说的 5 句话");
   const [toast, setToast] = useState("");
   const current = mode === "xhs" ? pages[active] : scenes[activeScene];
+  const filteredClassicScenes = useMemo(
+    () => classicCategory === "全部"
+      ? classicScenes
+      : classicScenes.filter((scene) => scene.category === classicCategory),
+    [classicCategory],
+  );
 
   useEffect(() => {
     if (!toast) return;
@@ -370,6 +382,65 @@ function App() {
     setToast("项目已保存到本机");
   }
 
+  function exportProjectJson() {
+    const content = JSON.stringify({
+      schema: PROJECT_SCHEMA,
+      schemaVersion: PROJECT_SCHEMA_VERSION,
+      appVersion: APP_VERSION,
+      exportedAt: new Date().toISOString(),
+      mode,
+      topic,
+      duration,
+      active,
+      activeScene,
+      pages,
+      scenes,
+    }, null, 2);
+    const blob = new Blob([content], { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `xhs-visual-studio-project-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    setToast("项目 JSON 已导出");
+  }
+
+  async function importProjectJson(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const payload = JSON.parse(await file.text());
+      if (payload.schema !== PROJECT_SCHEMA) {
+        throw new Error("Unsupported project file");
+      }
+      if (!Array.isArray(payload.pages) || !Array.isArray(payload.scenes)) {
+        throw new Error("Invalid project data");
+      }
+
+      const nextMode = payload.mode === "douyin" ? "douyin" : "xhs";
+      const nextDuration = [15, 30, 60].includes(payload.duration) ? payload.duration : 30;
+      const nextPages = payload.pages.length ? payload.pages : initialPages;
+      const nextScenes = payload.scenes.length ? payload.scenes : buildReadingVideo(nextDuration);
+
+      setMode(nextMode);
+      setTopic(payload.topic || "导入的创作主题");
+      setDuration(nextDuration);
+      setPages(nextPages);
+      setScenes(nextScenes);
+      setActive(Math.min(Math.max(Number(payload.active) || 0, 0), nextPages.length - 1));
+      setActiveScene(Math.min(Math.max(Number(payload.activeScene) || 0, 0), nextScenes.length - 1));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(nextPages));
+      localStorage.setItem(VIDEO_STORAGE_KEY, JSON.stringify(nextScenes));
+      setToast("项目 JSON 已导入");
+    } catch {
+      setToast("导入失败：请选择本工具导出的 JSON");
+    } finally {
+      event.target.value = "";
+    }
+  }
+
   async function copyPrompt() {
     await navigator.clipboard.writeText(current.prompt);
     setToast("本页提示词已复制");
@@ -399,6 +470,14 @@ function App() {
     setActive(0);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     setToast(isReadingTopic ? "已生成「阅读习惯」8 页完整内容" : "已生成 8 页通用创作蓝图");
+  }
+
+  function useClassicScene(scene) {
+    const nextTopic = `${scene.title}｜${scene.xhsAngle}`;
+    setTopic(nextTopic);
+    setMode("xhs");
+    setTab("文案");
+    setToast(`已选用「${scene.title}」作为创作选题`);
   }
 
   function exportPack() {
@@ -488,6 +567,12 @@ function App() {
           </div>
           <div className="top-actions">
             <button className="button secondary" onClick={saveProject}><Save size={16} />保存项目</button>
+            <button className="button secondary" onClick={() => fileInputRef.current?.click()}>
+              <Upload size={16} />导入项目
+            </button>
+            <button className="button secondary" onClick={exportProjectJson}>
+              <Download size={16} />导出 JSON
+            </button>
             <button className="button primary" onClick={exportPack}>
               <Download size={16} />{mode === "xhs" ? "导出创作包" : "导出拍摄清单"}
             </button>
@@ -708,6 +793,55 @@ function App() {
             </div>
           )}
         </section>
+
+        <section className="classic-panel">
+          <div className="classic-heading">
+            <div>
+              <BookOpen size={17} />
+              <span>古典素材库</span>
+              <small>诗经、楚辞、唐诗、宋词与古典名著名场面</small>
+            </div>
+            <span>{filteredClassicScenes.length} 条素材</span>
+          </div>
+          <div className="classic-filters" aria-label="古典素材分类">
+            {["全部", ...classicCategories].map((category) => (
+              <button
+                key={category}
+                className={classicCategory === category ? "active" : ""}
+                onClick={() => setClassicCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          <div className="classic-grid">
+            {filteredClassicScenes.map((scene) => (
+              <article className="classic-card" key={scene.id}>
+                <div className="classic-card-top">
+                  <span>{scene.category}</span>
+                  <small>{scene.dynasty} · {scene.author}</small>
+                </div>
+                <h3>{scene.title}</h3>
+                <p className="classic-source">{scene.source}</p>
+                <p>{scene.scene}</p>
+                <div className="classic-tags">
+                  {scene.themes.map((theme) => <span key={theme}>{theme}</span>)}
+                </div>
+                <div className="classic-actions">
+                  <button onClick={() => useClassicScene(scene)}>作为选题</button>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(scene.visualPrompt);
+                      setToast("古典视觉提示词已复制");
+                    }}
+                  >
+                    复制视觉提示词
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
         <footer className="app-footer">
           <span>社交内容创作台 · 小红书 + 抖音 · 开源基础版</span>
           <a
@@ -719,6 +853,13 @@ function App() {
           </a>
         </footer>
       </main>
+      <input
+        ref={fileInputRef}
+        className="file-input"
+        type="file"
+        accept="application/json,.json"
+        onChange={importProjectJson}
+      />
       {toast && <div className="toast">{toast}</div>}
     </div>
   );
