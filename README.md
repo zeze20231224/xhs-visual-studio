@@ -2,7 +2,7 @@
 
 > An open-source creation studio for Chinese social content. It turns a topic into Xiaohongshu carousel pages or Douyin short-video storyboards with editable copy, visual direction, and exportable prompts.
 
-[Online demo](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.3) · [Demo Guide](#demo-guide) · [Features](#features) · [Roadmap](#roadmap) · [中文说明](#中文说明)
+[Online demo](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.4) · [Demo Guide](#demo-guide) · [Features](#features) · [Roadmap](#roadmap) · [中文说明](#中文说明)
 
 ## Why This Project Exists
 
@@ -22,7 +22,7 @@ The current version is a frontend MVP. It does not yet call the OpenAI API direc
 
 Open the live demo:
 
-[https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.3](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.3)
+[https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.4](https://zeze20231224.github.io/xhs-visual-studio/?v=0.3.4)
 
 Try these flows:
 
